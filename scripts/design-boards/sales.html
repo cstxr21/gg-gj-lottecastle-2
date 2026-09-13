@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="ko"><head><meta charset="utf-8"><link rel="stylesheet" href="_base.css"></head>
+<body>
+<!--
+  06 분양안내 슬롯 — 분양 상담 데스크 선화(공고문·계약서 · 도장 · 열쇠 · 달력).
+  ⚠️ 문자 0. 달력에 숫자를 넣지 않는다 — 공고 전이라 확정 일정이 없고, 숫자를 그리면
+     미확정 일정을 고지한 꼴이 된다(3단계 미확정 7건). 금액·전화번호도 같은 이유로 넣지 않는다.
+-->
+<svg viewBox="0 0 640 480" xmlns="http://www.w3.org/2000/svg" role="img"
+     aria-label="분양 상담 데스크 선화 — 공고문과 계약서, 도장, 열쇠, 탁상 달력을 그린 일러스트">
+
+  <g class="bg">
+    <path d="M80 0V480M160 0V480M240 0V480M320 0V480M400 0V480M480 0V480M560 0V480"/>
+    <path d="M0 120H640M0 240H640M0 360H640"/>
+  </g>
+
+  <!-- 펜던트 조명 -->
+  <g class="obj">
+    <path d="M558 0v148"/>
+    <path d="M534 186l24-38 24 38z"/>
+    <path d="M530 186h56"/>
+  </g>
+  <g class="thin">
+    <path d="M540 200l-8 14M558 202v16M576 200l8 14"/>
+  </g>
+
+  <!-- 책상 -->
+  <rect class="wash" x="44" y="372" width="552" height="46"/>
+  <g class="obj">
+    <path d="M44 372h552M44 418h552"/>
+    <path d="M86 418v42M554 418v42"/>
+  </g>
+
+  <!-- 서류 2장 — 뒷장(공고문) · 앞장(계약서) -->
+  <g transform="rotate(-6 236 250)">
+    <rect class="sheet" x="146" y="128" width="164" height="214"/>
+    <g class="thin">
+      <path d="M166 162h84M166 180h124M166 198h124M166 216h96"/>
+      <path d="M166 244h124M166 262h124M166 280h72"/>
+    </g>
+  </g>
+  <g transform="rotate(5 262 262)">
+    <rect class="sheet" x="180" y="150" width="164" height="214"/>
+    <rect class="wash" x="200" y="172" width="62" height="12"/>
+    <g class="thin">
+      <path d="M200 202h124M200 218h124M200 234h84"/>
+      <rect x="200" y="256" width="124" height="46"/>
+      <path d="M200 272h124M242 256v46M284 256v46"/>
+      <path d="M200 322h72"/>
+    </g>
+    <!-- 날인 -->
+    <g class="thin" opacity=".45">
+      <circle cx="300" cy="330" r="19"/>
+      <circle cx="300" cy="330" r="13"/>
+    </g>
+  </g>
+
+  <!-- 도장 -->
+  <g class="obj">
+    <path d="M366 330v42h28v-42"/>
+    <ellipse cx="380" cy="330" rx="14" ry="5"/>
+    <path d="M373 330v-20h14v20"/>
+    <ellipse cx="380" cy="310" rx="7" ry="3"/>
+  </g>
+
+  <!-- 열쇠 -->
+  <g class="obj">
+    <circle cx="424" cy="356" r="11"/>
+    <circle cx="424" cy="356" r="4" class="thin"/>
+    <path d="M435 356h38"/>
+    <path d="M465 356v10M473 356v8"/>
+  </g>
+
+  <!-- 탁상 달력 — 숫자 없이 칸만 -->
+  <g>
+    <rect class="sheet" x="462" y="236" width="122" height="112"/>
+    <rect class="wash" x="462" y="236" width="122" height="24"/>
+    <g class="thin">
+      <path d="M462 260h122"/>
+      <circle cx="486" cy="280" r="3.4"/><circle cx="510" cy="280" r="3.4"/><circle cx="534" cy="280" r="3.4"/><circle cx="558" cy="280" r="3.4"/>
+      <circle cx="486" cy="302" r="3.4"/><circle cx="510" cy="302" r="3.4"/><circle cx="534" cy="302" r="3.4"/><circle cx="558" cy="302" r="3.4"/>
+      <circle cx="486" cy="324" r="3.4"/><circle cx="510" cy="324" r="3.4"/><circle cx="534" cy="324" r="3.4"/><circle cx="558" cy="324" r="3.4"/>
+    </g>
+    <circle class="obj" cx="534" cy="302" r="11"/>
+    <g class="obj"><path d="M492 348v24M554 348v24"/></g>
+  </g>
+
+  <!-- 화분 -->
+  <g class="obj">
+    <path d="M70 330h44l-6 42H76z"/>
+    <path d="M68 330h48"/>
+    <path d="M92 330v-34"/>
+  </g>
+  <g class="thin">
+    <path d="M92 312c-16-4-22-16-20-28 13-2 22 8 20 28z"/>
+    <path d="M92 302c14-6 20-18 17-30-13 0-21 11-17 30z"/>
+    <path d="M92 322c-12 2-20-4-22-13 9-4 19 2 22 13z"/>
+  </g>
+</svg>
+</body></html>

@@ -1,0 +1,25 @@
+{
+  "_note": "16단계 #13/G16-PERF 실측 증거. npx lighthouse로 프로덕션 빌드(next start -p 3991) 측정. 임계값 출처는 14단계 [검증](LCP≤2.5s·CLS≤0.1) — 미달은 성능 플래그이지 배포 차단 아님. 측정 누락=RED.",
+  "measuredAt": "2026-09-12",
+  "how": "next build → npx next start -p 3991 → npx lighthouse <url> --preset=desktop / --form-factor=mobile --throttling-method=simulate (Chrome 헤드리스). 로컬·콜드·시뮬레이션 스로틀이라 모바일 수치는 비관적 — 데스크탑 기준선과 함께 해석(16단계 [점검 4]).",
+  "thresholds": { "lcpSec": 2.5, "cls": 0.1 },
+  "desktop": {
+    "home": { "perf": 98, "lcpSec": 1.06, "cls": 0, "tbtMs": 8, "fcpSec": 0.63, "siSec": 0.74, "seo": 100 },
+    "modelhouse": { "perf": 98, "lcpSec": 1.0, "cls": 0, "tbtMs": 0, "fcpSec": 0.72, "siSec": 0.74, "seo": 100 },
+    "complex": { "perf": 94, "lcpSec": 1.59, "cls": 0, "tbtMs": 22, "fcpSec": 0.76, "siSec": 0.8, "seo": 100 }
+  },
+  "mobile": {
+    "home": { "perf": 59, "lcpSec": 9.11, "cls": 0, "tbtMs": 0, "fcpSec": 6.55, "siSec": 6.55, "seo": 100 },
+    "modelhouse": { "perf": 60, "lcpSec": 8.1, "cls": 0, "tbtMs": 0, "fcpSec": 6.22, "siSec": 6.22, "seo": 100 }
+  },
+  "subsMeasured": ["modelhouse", "complex"],
+  "subPickReason": "빌드 HTML이 참조하는 이미지 바이트 합계로 서브를 정렬해 최다 라우트를 골랐다(og 제외): modelhouse 311KB > overview 298KB > complex 287KB > premium 165KB > location 149KB. 템플릿 기본 키인 complex도 함께 측정했다.",
+  "flags": [
+    "모바일 LCP 9.11s(home)·8.10s(modelhouse) — 임계 2.5s 초과. 성능 플래그(권고)이며 배포 차단 아님(16단계 [중요도] blocker 7종에 perf 없음).",
+    "원인 실측(m-home network-requests): 총 전송 1,391KB 중 폰트 712KB(28개 woff2 서브셋)가 최대 항목. CJK 본문/제목 폰트를 실제 쓰는 weight 수(Noto Sans KR 400·500·700, Noto Serif KR 400·700, Cormorant 400·500)만큼 unicode-range 서브셋이 곱해진 결과다. 이미지는 271KB로 폰트의 38%.",
+    "unused-css-rules 절감 여지 1,290ms(스타일시트 2청크 합 217KB), unused-javascript 300ms.",
+    "CLS는 전 측정에서 0.000 — 치수 미지정 시프트 원인 없음(G16-CLS와 일치).",
+    "데스크탑은 전 라우트 Perf 94~98·LCP 1.0~1.59s로 임계 이내. 모바일 수치는 로컬 콜드 + 시뮬레이션 느린4G 조건이라 비관적이며, 배포 후 PageSpeed Insights 필드데이터로 재확인할 것."
+  ],
+  "linkTextAudit": "Lighthouse SEO link-text = 1.0(만점) · 측정 5건 전부 — 비서술 앵커 0(#14 교차 확인, G14-LINKTEXT와 일치). SEO 카테고리 점수도 5건 전부 100."
+}

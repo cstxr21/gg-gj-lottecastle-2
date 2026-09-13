@@ -39,3 +39,10 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# 비공개 작업 자산 — GitHub에 올리지 않는다(2026-09-12, 사용자 지시)
+#  docs/    : 단계별 작업 지시서 · 사용자 제공 원본 이미지
+#  extract/ : 원사이트 크롤 산출물(원문 텍스트 · 이미지 · 공고문 PDF) — 제3자 저작물 포함
+# ⚠️ 로컬에는 그대로 남는다. verify.mjs·materialize-images.mjs가 이 둘을 읽으므로 삭제하지 말 것.
+/docs/
+/extract/

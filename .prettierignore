@@ -1,0 +1,11 @@
+node_modules
+.next
+out
+build
+package-lock.json
+public
+docs
+scripts/verify.mjs
+scripts/extract-site.mjs
+scripts/keywords.mjs
+scripts/materialize-images.mjs

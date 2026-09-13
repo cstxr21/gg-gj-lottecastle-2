@@ -1,0 +1,2 @@
+User-agent: *
+Sitemap: https://www.gallerycenter.co.kr/sitemap.xml

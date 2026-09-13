@@ -1,0 +1,90 @@
+{
+  "images": [
+    {
+      "file": "images/hero/gg-gj-lottecastle-2-hero-aerial-01.webp",
+      "bytes": 304538,
+      "q": 65,
+      "cap": 1632,
+      "outW": 1632,
+      "outH": 1153,
+      "src": "extract/gg-gj-lottecastle-2/curated/hero/gg-gj-lottecastle-2-hero-aerial-01.jpg",
+      "panel": false,
+      "status": "target"
+    },
+    {
+      "file": "images/hero/gg-gj-lottecastle-2-hero-aerial-02-wide.webp",
+      "bytes": 293638,
+      "q": 70,
+      "cap": 1540,
+      "outW": 1540,
+      "outH": 876,
+      "src": "extract/gg-gj-lottecastle-2/curated/hero/gg-gj-lottecastle-2-hero-aerial-02-wide.jpg",
+      "panel": false,
+      "status": "target"
+    },
+    {
+      "file": "images/location/gg-gj-lottecastle-2-location-site-map-02.webp",
+      "bytes": 20244,
+      "q": 80,
+      "cap": 560,
+      "outW": 560,
+      "outH": 440,
+      "src": "extract/gg-gj-lottecastle-2/curated/location/gg-gj-lottecastle-2-location-site-map-02.jpg",
+      "panel": false,
+      "status": "target"
+    },
+    {
+      "file": "images/modelhouse/gg-gj-lottecastle-2-modelhouse-map-01.webp",
+      "bytes": 13184,
+      "q": 80,
+      "cap": 560,
+      "outW": 560,
+      "outH": 440,
+      "src": "extract/gg-gj-lottecastle-2/curated/modelhouse/gg-gj-lottecastle-2-modelhouse-map-01.jpg",
+      "panel": false,
+      "status": "target"
+    },
+    {
+      "file": "images/modelhouse/gg-gj-lottecastle-2-modelhouse-map-02-yatap.webp",
+      "bytes": 10444,
+      "q": 80,
+      "cap": 560,
+      "outW": 560,
+      "outH": 440,
+      "src": "extract/gg-gj-lottecastle-2/curated/modelhouse/gg-gj-lottecastle-2-modelhouse-map-02-yatap.jpg",
+      "panel": false,
+      "status": "target"
+    },
+    {
+      "file": "images/premium/gg-gj-lottecastle-2-premium-castle-service-01.webp",
+      "bytes": 169036,
+      "q": 80,
+      "cap": 1160,
+      "outW": 1160,
+      "outH": 2279,
+      "src": "extract/gg-gj-lottecastle-2/curated/premium/gg-gj-lottecastle-2-premium-castle-service-01.jpg",
+      "panel": true,
+      "status": "target"
+    },
+    {
+      "file": "images/location/gg-gj-lottecastle-2-location-best-location-01.webp",
+      "bytes": 131734,
+      "q": 80,
+      "cap": 1543,
+      "outW": 1160,
+      "outH": 1543,
+      "src": "extract/gg-gj-lottecastle-2/curated/location/gg-gj-lottecastle-2-location-best-location-01.jpg",
+      "panel": false,
+      "status": "target"
+    }
+  ],
+  "videos": [],
+  "og": {
+    "file": "images/og/gg-gj-lottecastle-2-og.jpg",
+    "bytes": 206272,
+    "src": "extract/gg-gj-lottecastle-2/curated/hero/gg-gj-lottecastle-2-hero-aerial-01.jpg"
+  },
+  "unresolved": [],
+  "over": [],
+  "maybeHeld": 0
+}

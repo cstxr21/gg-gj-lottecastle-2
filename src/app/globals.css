@@ -1,26 +1,79 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #fafaf8; /* 웜 오프화이트 — 기본 배경 */
+  --surface: #ffffff; /* 순백 — 본문 콘텐츠 섹션 */
+  --foreground: #1a1815; /* 오프블랙(ink) */
+  --muted-text: #6e665a; /* 보조 텍스트 (대비 ≥4.5:1) */
+  --line: #d6cfc2; /* 디바이더 */
+  --bronze: #8c7b5e; /* 액센트 */
 }
 
 @theme inline {
   --color-background: var(--background);
+  --color-surface: var(--surface);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-ivory: var(--background); /* → bg-ivory */
+  --color-ink: var(--foreground); /* → text-ink / bg-ink */
+  --color-muted: var(--muted-text); /* → text-muted */
+  --color-line: var(--line); /* → border-line */
+  --color-bronze: var(--bronze); /* → text-bronze / bg-bronze */
+  --font-sans: var(--font-noto-sans-kr);
+  --font-serif: var(--font-noto-serif-kr);
+  --font-accent: var(--font-cormorant);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* ── 6단계 §B 모션 토큰 ──────────────────────────────────────────────
+   easing은 ease-out 계열 고정, duration 0.3~0.9s. Bounce/Spring 금지.
+   7~13단계가 새 모션을 만들 때 이 토큰만 쓴다(값이 흩어지면 규칙이 깨진다). */
+:root {
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --dur-fast: 0.3s;
+  --dur-base: 0.6s;
+  --dur-slow: 0.9s;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-noto-sans-kr), Arial, Helvetica, sans-serif;
+  word-break: keep-all; /* 한국어 가독성 — 단어 단위 줄바꿈 */
+  /* 6단계 §A-1 / §E — 읽는 본문 하한. 헤드만 축소하고 본문은 어느 뷰포트에서도 17px 유지(§D) */
+  font-size: 17px;
+  font-weight: 400; /* Light(200~300) 미로드 — 읽는 텍스트 가독성 */
+  line-height: 1.75; /* 50대 가독성 (1.6 미만 금지) */
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── 6단계 §E 접근성 ────────────────────────────────────────────────
+   키보드 포커스는 브론즈 + outline. 마우스 클릭에는 나타나지 않게 :focus-visible만 건다.
+   radius 0 원칙(5단계 §6)에 맞춰 outline도 각지게 둔다. */
+:focus-visible {
+  outline: 2px solid var(--bronze);
+  outline-offset: 2px;
+}
+
+/* 정보 구분을 색만으로 하지 않는다(§E) — 본문 링크는 언더라인을 기본값으로 */
+.prose-body a:not([class]) {
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+  text-decoration-thickness: 1px;
+}
+
+/* 터치·클릭 영역 44×44px 하한(§E). 7·8단계 버튼·메뉴가 이 유틸을 쓴다 */
+.tap-target {
+  min-width: 44px;
+  min-height: 44px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+    /* 진입 모션이 opacity 0에서 멈춰 본문이 사라지는 사고 방지 */
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+  }
 }

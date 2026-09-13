@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="ko"><head><meta charset="utf-8"><link rel="stylesheet" href="_base.css"></head>
+<body>
+<!--
+  05 평면도 슬롯 — 주거공간 아이소메트릭 절개 일러스트.
+  ⚠️ 처음엔 탑뷰 평면 선화로 그렸다가 폐기했다. 문 스윙·치수선·방위표·위생기구를 갖춘 순간
+     실제 분양 평면도의 관례를 전부 갖게 돼, 방문자가 "이 단지 평면이 이렇다"로 읽는다(표시광고법 리스크).
+     캡션으로 막을 수 있는 수준이 아니라서 **도면 관례를 통째로 버리고** 입체 그림으로 바꿨다.
+  ⚠️ 그래서 이 그림엔 다음을 넣지 않는다 — 치수선 · 방위표 · 문 스윙 · 축척 · 실명(방 이름) · 타입명.
+     다시 넣고 싶어지면 위 이유를 먼저 읽을 것.
+  면은 불투명하게 칠하고 **뒤→앞 순서(painter's algorithm)**로 그린다. 선만 그리면 유리상자가 된다.
+-->
+<svg id="a" viewBox="0 0 640 480" xmlns="http://www.w3.org/2000/svg" role="img"
+     aria-label="주거공간 아이소메트릭 절개 일러스트 — 거실과 침실, 주방, 발코니를 입체로 그린 그림"></svg>
+<script>
+/* 아이소메트릭 투영 — 바닥(x,y) + 높이 z → 화면 좌표 */
+const CX = 316, CY = 150, S = 1.08, KX = Math.cos(Math.PI / 6) * S;
+const P = (x, y, z = 0) => [CX + (x - y) * KX, CY + ((x + y) * 0.5 - z) * S];
+const pt = (p) => p[0].toFixed(1) + "," + p[1].toFixed(1);
+const poly = (a) => "M" + a.map(pt).join("L") + "Z";
+
+/* 면 색 — 윗면/우측면/좌측면에 미세한 명암을 줘 덩어리를 읽히게 한다 */
+const TOP = "#f5f1e9", RIGHT = "#fbfaf7", LEFT = "#eeeae0", FLOOR = "#f8f6f1";
+
+const parts = [];                       /* {k, svg} — k = 근경 정렬키(앞일수록 큼) */
+const push = (k, svg) => parts.push({ k, svg });
+const path = (d, cls, fill) =>
+  '<path class="' + cls + '" d="' + d + '" fill="' + (fill || "none") + '"/>';
+
+/** 입체 상자 — 좌/우/윗면. z0 위에 얹을 수 있다. */
+function box(x, y, w, d, h, o) {
+  o = o || {};
+  const cls = o.cls || "i-furn", z0 = o.z0 || 0, z1 = z0 + h;
+  const s =
+    path(poly([P(x + w, y, z0), P(x + w, y + d, z0), P(x + w, y + d, z1), P(x + w, y, z1)]), cls, RIGHT) +
+    path(poly([P(x, y + d, z0), P(x + w, y + d, z0), P(x + w, y + d, z1), P(x, y + d, z1)]), cls, LEFT) +
+    path(poly([P(x, y, z1), P(x + w, y, z1), P(x + w, y + d, z1), P(x, y + d, z1)]), cls, o.top || TOP);
+  push(o.k != null ? o.k : x + w + y + d, s);
+  return s;
+}
+/** 바닥에 놓인 평면 사각(러그·카운터 상판 홈 등) */
+const flat = (x, y, w, d, z, cls) =>
+  poly([P(x, y, z), P(x + w, y, z), P(x + w, y + d, z), P(x, y + d, z)]);
+
+const back = [];                        /* 바닥·벽 — 정렬 대상 밖, 항상 맨 뒤 */
+
+/* 바닥 슬래브 + 발코니 */
+back.push(path(flat(0, 0, 300, 200, 0), "i-obj", FLOOR));
+back.push(path(flat(0, 200, 182, 44, 0), "i-thin", FLOOR));
+back.push(path(poly([P(300, 0), P(300, 200), P(300, 200, -9), P(300, 0, -9)]), "i-obj", LEFT));
+back.push(path(poly([P(182, 200), P(300, 200), P(300, 200, -9), P(182, 200, -9)]), "i-obj", LEFT));
+back.push(path(poly([P(0, 244), P(182, 244), P(182, 244, -9), P(0, 244, -9)]), "i-thin", LEFT));
+
+/* 벽 — 뒷벽 · 좌측벽 */
+const wall = (x, y, w, d, h) =>
+  path(poly([P(x + w, y, 0), P(x + w, y + d, 0), P(x + w, y + d, h), P(x + w, y, h)]), "i-obj", RIGHT) +
+  path(poly([P(x, y + d, 0), P(x + w, y + d, 0), P(x + w, y + d, h), P(x, y + d, h)]), "i-obj", LEFT) +
+  path(poly([P(x, y, h), P(x + w, y, h), P(x + w, y + d, h), P(x, y + d, h)]), "i-obj", TOP);
+back.push(wall(0, 0, 300, 7, 78));
+back.push(wall(0, 7, 7, 193, 78));
+
+/* 창 — 벽면에 파낸 면 */
+const winY = (x1, x2, z1, z2) => path(poly([P(x1, 7, z1), P(x2, 7, z1), P(x2, 7, z2), P(x1, 7, z2)]), "i-thin", "#fbfaf7");
+back.push(winY(42, 118, 28, 64));
+back.push(winY(202, 264, 28, 64));
+back.push(path("M" + pt(P(80, 7, 28)) + "L" + pt(P(80, 7, 64)), "i-thin"));
+back.push(path("M" + pt(P(233, 7, 28)) + "L" + pt(P(233, 7, 64)), "i-thin"));
+
+/* 러그 — 바닥에 붙은 평면 */
+back.push(path(flat(24, 54, 112, 116, 0.2), "i-thin"));
+
+/* ── 거실 ── */
+box(12, 76, 5, 56, 44, { cls: "i-thin", k: 120 });          /* 벽걸이 TV */
+box(10, 70, 16, 66, 20, { k: 160 });                      /* TV장 */
+box(52, 86, 36, 34, 12, { k: 204 });                      /* 좌탁 */
+box(96, 58, 12, 86, 40, { k: 248 });                      /* 소파 등받이 */
+box(96, 58, 36, 86, 24, { k: 272 });                      /* 소파 좌석 */
+
+/* ── 칸막이(절개 — 낮게 잘라 안이 보이게) ── */
+box(176, 7, 7, 53, 60, { cls: "i-obj", k: 296 });        /* 칸막이 — 출입구를 비우고 */
+box(176, 92, 7, 27, 60, { cls: "i-obj", k: 300 });
+box(176, 60, 7, 32, 12, { cls: "i-obj", k: 298, z0: 48 }); /* 출입구 상인방 */
+box(183, 112, 117, 7, 18, { cls: "i-obj", k: 419 });   /* 시선 방향 앞벽 — 낮게 절개 */
+
+/* ── 침실 ── */
+box(206, 20, 76, 9, 38, { k: 308 });                      /* 헤드보드 */
+box(288, 26, 14, 14, 20, { k: 338 });                     /* 협탁 */
+box(206, 29, 76, 92, 17, { k: 398 });                     /* 침대 */
+push(399, path(flat(206, 29, 76, 26, 17.3), "i-thin"));     /* 베개 단 */
+
+/* ── 주방 ── */
+box(188, 124, 22, 22, 46, { k: 356 });                    /* 냉장고 */
+box(190, 166, 106, 20, 26, { k: 480 });                   /* 카운터 */
+push(481, path(flat(218, 170, 24, 13, 26.3), "i-thin"));    /* 싱크 */
+push(481, path(flat(256, 170, 22, 13, 26.3), "i-thin"));    /* 쿡탑 */
+
+/* ── 화분 ── */
+box(148, 210, 18, 18, 15, { cls: "i-thin", k: 398 });
+const [lx, ly] = P(157, 219, 15);
+push(399,
+  path("M" + lx + " " + ly.toFixed(1) + "V" + (ly - 34).toFixed(1), "i-thin") +
+  path("M" + lx + " " + (ly - 30).toFixed(1) + "c-17-4-23-17-20-29 13-2 23 9 20 29z", "i-thin") +
+  path("M" + lx + " " + (ly - 18).toFixed(1) + "c16-5 22-17 19-29-13-1-22 11-19 29z", "i-thin"));
+
+/* ── 발코니 난간 — 항상 맨 앞 ── */
+let rail = path("M" + pt(P(0, 244, 34)) + "L" + pt(P(182, 244, 34)), "i-thin");
+for (let x = 0; x <= 182; x += 26) rail += path("M" + pt(P(x, 244)) + "L" + pt(P(x, 244, 34)), "i-thin");
+rail += path("M" + pt(P(0, 244)) + "L" + pt(P(182, 244)), "i-thin");
+push(1e6, rail);
+
+document.getElementById("a").innerHTML =
+  '<g class="bg"><path d="M80 0V480M160 0V480M240 0V480M320 0V480M400 0V480M480 0V480M560 0V480"/>' +
+  '<path d="M0 120H640M0 240H640M0 360H640"/></g>' +
+  back.join("") +
+  parts.sort((a, b) => a.k - b.k).map((p) => p.svg).join("");
+</script>
+</body></html>
